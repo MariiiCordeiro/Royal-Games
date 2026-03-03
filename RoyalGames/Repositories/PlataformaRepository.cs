@@ -59,7 +59,7 @@ namespace RoyalGames.Repositories
         void Atualizar(Plataforma plataforma)
         {
             // Busca uma pltaforma pelo ID no banco 
-            Plataforma plataformaBanco = _context.Plataforma.FirstOrDefault(p => p.PlataformaID == p.PlataformaID);
+            Plataforma plataformaBanco = _context.Plataforma.FirstOrDefault(p => p.PlataformaID == plataforma.PlataformaID);
 
             // Se não encontrar nada retorna a saído do método.
             if (plataformaBanco == null)
