@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "zTTly/VRxNWqHY26DDFHAVfJVVUkAfzjLfEUKgu3UfU=",
-  "Source": "RoyalGames",
-  "BasePath": "_content/RoyalGames",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"jK3F4lIVNrrOpViFIdm94VnrC0z79IQbNxghmWZmjT8=","Source":"RoyalGames","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
