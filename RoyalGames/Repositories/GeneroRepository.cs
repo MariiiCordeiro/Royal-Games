@@ -50,13 +50,13 @@ namespace RoyalGames.Repositories
         }
 
         // Adiciona um novo genero no banco.
-        void Adicionar(Genero genero)
+        public void Adicionar(Genero genero)
         {
-            _context.Plataforma.Add(genero);
+            _context.Genero.Add(genero);
             _context.SaveChanges();
         }
 
-        void Atualizar(Genero genero)
+        public void Atualizar(Genero genero)
         {
             // Busca um genero pelo ID no banco 
             Genero generoBanco = _context.Genero.FirstOrDefault(g => g.GeneroID == genero.GeneroID);
@@ -73,7 +73,7 @@ namespace RoyalGames.Repositories
         }
 
         // Remove um genero pelo ID
-        void Remover(int id)
+        public void Remover(int id)
         {
             // Busca um genero pelo ID no banco 
             Genero generoBanco = _context.Genero.FirstOrDefault(g => g.GeneroID == id);
