@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using RoyalGames.Contexts;
+﻿using RoyalGames.Contexts;
 using RoyalGames.Domains;
 using RoyalGames.Interfaces;
-using System.Text.Json.Serialization;
 
 namespace RoyalGames.Repositories
 {
