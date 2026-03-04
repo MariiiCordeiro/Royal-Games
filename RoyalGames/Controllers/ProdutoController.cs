@@ -62,7 +62,7 @@ namespace RoyalGames.Controllers
         }
         [HttpPost]
         [Consumes("Multipart/Form-Data")] // Indica que recebe dados no formato multpart/from-data
-        [Authorize] // exige login para adicionar produtos
+        //[Authorize] // exige login para adicionar produtos
         public IActionResult Adicionar([FromForm] CriarProdutoDto produtoDTO)
         {
             try
@@ -81,7 +81,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpPut("(id)")]
-        [Authorize]
+        //[Authorize]
         public IActionResult Atualizar(int id, [FromForm] AtualizarProdutoDto produtoDTO)
         {
             try
@@ -96,7 +96,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult Remover(int id)
         {
             try

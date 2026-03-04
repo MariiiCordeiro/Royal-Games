@@ -160,9 +160,7 @@ namespace RoyalGames.Aplications.Services
             Produto produto = _repository.ObterPorId(id);
 
             if (produto == null)
-            {
                 throw new DomainException("Produto não encontrado.");
-            }
 
             _repository.Remover(id);
         }
