@@ -1,8 +1,8 @@
 ﻿namespace RoyalGames.DTOs.GeneroDto
 {
-    public class CriarGeneroDto
+    public class LerGeneroDto
     {
-        //Inicializado como null para evitar warning
+        public int GeneroID { get; set; }
         public string Nome { get; set; } = null!;
     }
 }
