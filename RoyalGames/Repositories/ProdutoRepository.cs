@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using RoyalGames.Contexts;
+﻿using RoyalGames.Contexts;
 using RoyalGames.Domains;
 using RoyalGames.Interfaces;
-using System.Text.Json.Serialization;
 
 namespace RoyalGames.Repositories
 {
@@ -20,7 +16,6 @@ namespace RoyalGames.Repositories
         {
             List<Produto> produtos = _context.Produto
                 .Include(p => p.Genero)
-                .Include(p => p.Descricao)
                 .Include(p => p.Usuario)
                 .ToList();
 
@@ -31,7 +26,6 @@ namespace RoyalGames.Repositories
         {
             Produto? produto = _context.Produto
                 .Include(p => p.Genero)
-                .Include(p => p.Descricao)
                 .Include(p => p.Usuario)
                 .FirstOrDefault(p => p.ProdutoID == id);
 

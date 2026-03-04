@@ -36,7 +36,11 @@ public partial class RoyalGamesContext : DbContext
     {
         modelBuilder.Entity<ClassificacaoIndicativa>(entity =>
         {
+<<<<<<< HEAD
             entity.HasKey(e => e.ClassificacaoID).HasName("PK__Classifi__D1D088EE0A06052C");
+=======
+            entity.HasKeSy(e => e.ClassificacaoID).HasName("PK__Classifi__D1D088EE0A06052C");
+>>>>>>> feature/produtos
 
             entity.Property(e => e.Nome)
                 .HasMaxLength(50)
