@@ -1,23 +1,15 @@
-<<<<<<< HEAD
-using System.Text;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RoyalGames.Aplications.Authentication;
-=======
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
->>>>>>> feature/genero
 using RoyalGames.Aplications.Services;
 using RoyalGames.Contexts;
 using RoyalGames.Interfaces;
 using RoyalGames.Repositories;
-<<<<<<< HEAD
-=======
 using System.Text;
->>>>>>> feature/genero
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,8 +47,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 // Conexï¿½o com o banco de dados
-builder.Services.AddDbContext<RoyalGamesContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<RoyalGamesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Produto
@@ -75,67 +66,13 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<GeradorTokenJwt>();
 builder.Services.AddScoped<AutenticacaoService>();
 
-
-// Configura o sistema de autenticaï¿½ï¿½o da aplicaï¿½ï¿½o.
-// Aqui estamos dizendo que o tipo de autenticaï¿½ï¿½o padrï¿½o serï¿½ JWT Bearer.
-// Ou seja: a API vai esperar receber um Token JWT nas requisiï¿½ï¿½es.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-
-    // Adiciona o suporte para autenticaï¿½ï¿½o usando JWT.
-    .AddJwtBearer(options =>
-    {
-        // Lï¿½ a chave secreta definida no appsettings.json.
-        // Essa chave ï¿½ usada para ASSINAR o token quando ele ï¿½ gerado
-        // e tambï¿½m para VALIDAR se o token recebido ï¿½ verdadeiro.
-        var chave = builder.Configuration["Jwt:Key"]!;
-
-        // Quem emitiu o token (ex: nome da sua aplicaï¿½ï¿½o).
-        // Serve para evitar aceitar tokens de outro sistema.
-        var issuer = builder.Configuration["Jwt:Issuer"]!;
-
-        // Para quem o token foi criado (normalmente o frontend ou a prï¿½pria API).
-        // Tambï¿½m ajuda a garantir que o token pertence ao seu sistema.
-        var audience = builder.Configuration["Jwt:Audience"]!;
-
-        // Define as regras que serï¿½o usadas para validar o token recebido.
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            // Verifica se o emissor do token ï¿½ vï¿½lido
-            // (se bate com o issuer configurado).
-            ValidateIssuer = true,
-
-            // Verifica se o destinatï¿½rio do token ï¿½ vï¿½lido
-            // (se bate com o audience configurado).
-            ValidateAudience = true,
-
-            // Verifica se o token ainda estï¿½ dentro do prazo de validade.
-            // Se jï¿½ expirou, a requisiï¿½ï¿½o serï¿½ negada.
-            ValidateLifetime = true,
-
-            // Verifica se a assinatura do token ï¿½ vï¿½lida.
-            // Isso garante que o token nï¿½o foi alterado.
-            ValidateIssuerSigningKey = true,
-
-            // Define qual emissor ï¿½ considerado vï¿½lido.
-            ValidIssuer = issuer,
-
-            // Define qual audience ï¿½ considerado vï¿½lido.
-            ValidAudience = audience,
-
-            // Define qual chave serï¿½ usada para validar a assinatura do token.
-            // A mesma chave usada na geraï¿½ï¿½o do JWT deve estar aqui.
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(chave)
-            )
-        };
-    });
-
-builder.Services.AddDbContext<RoyalGamesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-
 // Gênero
 builder.Services.AddScoped<IGeneroRepository, GeneroRepository>();
 builder.Services.AddScoped<GeneroService>();
 
+// AltereÃ§Ã£o produto
+builder.Services.AddScoped<ILogAlteracaoProdutoRepository, LogAlteracaoProdutoRepository>();
+builder.Services.AddScoped<LogAlteracaoProdutoService>();
 
 // Configura o sistema de autenticação da aplicação.
 // Aqui estamos dizendo que o tipo de autenticação padrão será JWT Bearer.
@@ -190,6 +127,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             )
         };
     });
+
+
+
+
+
+// Configura o sistema de autenticaÃ§Ã£o da aplicaÃ§Ã£o.
+// Aqui estamos dizendo que o tipo de autenticaÃ§Ã£o padrÃ£o serÃ¡ JWT Bearer.
+// Ou seja: a API vai esperar receber um Token JWT nas requisiÃ§Ãµes.
 
 var app = builder.Build();
 

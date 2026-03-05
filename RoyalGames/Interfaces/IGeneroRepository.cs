@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-﻿namespace RoyalGames.Interfaces
-{
-    public interface IGeneroRepository
-    {
 
-=======
 ﻿using RoyalGames.Domains;
 
 namespace RoyalGames.Interfaces
@@ -17,6 +11,5 @@ namespace RoyalGames.Interfaces
         void Adicionar(Genero genero);
         void Atualizar(Genero genero);
         void Remover(int id);
->>>>>>> feature/genero
     }
 }

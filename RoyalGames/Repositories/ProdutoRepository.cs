@@ -1,4 +1,5 @@
-﻿using RoyalGames.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using RoyalGames.Contexts;
 using RoyalGames.Domains;
 using RoyalGames.Interfaces;
 

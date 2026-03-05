@@ -123,7 +123,7 @@ namespace RoyalGames.Aplications.Services
                 throw new DomainException("Já existe outro produto com esse nome.");
             }
 
-            if (produtoDto.CategoriaIds == null || produtoDto.CategoriaIds.Count == 0)
+            if (produtoDto.GeneroIds == null || produtoDto.GeneroIds.Count == 0)
             {
                 throw new DomainException("Produto deve ter ao menos uma categoria.");
             }
@@ -147,7 +147,7 @@ namespace RoyalGames.Aplications.Services
                 produtoBanco.StatusProduto = produtoDto.StatusProduto.Value;
             }
 
-            _repository.Atualizar(produtoBanco, produtoDto.CategoriaIds);
+            _repository.Atualizar(produtoBanco, produtoDto.GeneroIds);
 
             return ProdutoParaDto.ConverterParaDto(produtoBanco);
 
