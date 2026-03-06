@@ -1,6 +1,9 @@
-﻿using RoyalGames.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using RoyalGames.Contexts;
 using RoyalGames.Domains;
+using RoyalGames.DTOs.ProdutoDto;
 using RoyalGames.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RoyalGames.Repositories
 {
@@ -20,6 +23,66 @@ namespace RoyalGames.Repositories
                 .ToList();
 
             return produtos;
+        }
+
+        public List<Produto> Filtrar(FiltrarProdutoDto filtroDto)
+        {
+            // IQueryable permite montar a consulta dinamicamente.
+            // A query só será executada quando chamarmos ToList().
+            IQueryable<Produto> query = _context.Produto;
+
+            // Verifica se o nome foi informado no filtro.
+            // Se não for nulo ou vazio, filtra produtos que contenham esse nome.
+            if (!string.IsNullOrWhiteSpace(filtroDto.Nome))
+            {
+                query = query.Where(p => p.Nome.Contains(filtroDto.Nome));
+            }
+
+            // Verifica se foi informado um ID de gênero.
+            // HasValue indica que o campo nullable possui valor.
+            if (filtroDto.GeneroIds.HasValue)
+            {
+                // Um produto pode ter vários gêneros.
+                // O Any verifica se existe algum gênero do produto
+                // com o ID informado no filtro.
+                query = query.Where(p =>
+                    p.Genero.Any(g => g.GeneroID == filtroDto.GeneroIds.Value));
+            }
+
+            // Verifica se foi informado um ID de plataforma.
+            if (filtroDto.PlataformaIds.HasValue)
+            {
+                // Um produto pode estar disponível em várias plataformas.
+                // O Any verifica se alguma plataforma do produto
+                // corresponde ao ID informado no filtro.
+                query = query.Where(p =>
+                    p.Plataforma.Any(pl => pl.PlataformaID == filtroDto.PlataformaIds.Value));
+            }
+
+            // Filtra pelo status do produto (ativo ou inativo).
+            if (filtroDto.StatusProduto.HasValue)
+            {
+                query = query.Where(p =>
+                    p.StatusProduto == filtroDto.StatusProduto.Value);
+            }
+
+            // Filtra produtos com preço maior ou igual ao preço mínimo informado.
+            if (filtroDto.PrecoMin.HasValue)
+            {
+                query = query.Where(p =>
+                    p.Preco >= filtroDto.PrecoMin.Value);
+            }
+
+            // Filtra produtos com preço menor ou igual ao preço máximo informado.
+            if (filtroDto.PrecoMax.HasValue)
+            {
+                query = query.Where(p =>
+                    p.Preco <= filtroDto.PrecoMax.Value);
+            }
+
+            // Executa a consulta no banco de dados
+            // e retorna a lista de produtos filtrados.
+            return query.ToList();
         }
 
         public Produto ObterPorId(int id)
@@ -108,6 +171,8 @@ namespace RoyalGames.Repositories
 
             _context.Remove(produtoRemovido);
             _context.SaveChanges();
+
+
         }
     }
 }
