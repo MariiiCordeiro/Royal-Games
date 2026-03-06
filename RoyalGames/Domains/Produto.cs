@@ -25,6 +25,8 @@ public partial class Produto
 
     public virtual ICollection<Log_AlteracaoProduto> Log_AlteracaoProduto { get; set; } = new List<Log_AlteracaoProduto>();
 
+    public virtual ICollection<ProdutoPromocao> ProdutoPromocao { get; set; } = new List<ProdutoPromocao>();
+
     public virtual Usuario Usuario { get; set; } = null!;
 
     public virtual ICollection<Genero> Genero { get; set; } = new List<Genero>();
