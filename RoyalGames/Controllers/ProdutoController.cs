@@ -66,7 +66,7 @@ namespace RoyalGames.Controllers
         [HttpGet("filtro")]
         public IActionResult Filtrar([FromQuery] FiltrarProdutoDto filtro)
         {
-            List<LerProdutoDto> produtos = _service.Filtrar(filtro);
+            List<LerFiltroProdutoDto> produtos = _service.Filtrar(filtro);
 
             return Ok(produtos);
         }
@@ -93,7 +93,7 @@ namespace RoyalGames.Controllers
             }
         }
 
-        [HttpPut("(id)")]
+        [HttpPut("{id}")]
         [Authorize]
         public IActionResult Atualizar(int id, [FromForm] AtualizarProdutoDto produtoDTO)
         {

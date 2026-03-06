@@ -182,8 +182,34 @@
   },
   {
     "ContainingType": "RoyalGames.Controllers.ProdutoController",
+    "Method": "ObterPorId",
+    "RelativePath": "api/Produto/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RoyalGames.DTOs.ProdutoDto.LerProdutoDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RoyalGames.Controllers.ProdutoController",
     "Method": "Atualizar",
-    "RelativePath": "api/Produto/(id)",
+    "RelativePath": "api/Produto/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -191,7 +217,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       },
       {
         "Name": "Nome",
@@ -228,32 +254,6 @@
   },
   {
     "ContainingType": "RoyalGames.Controllers.ProdutoController",
-    "Method": "ObterPorId",
-    "RelativePath": "api/Produto/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RoyalGames.DTOs.ProdutoDto.LerProdutoDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RoyalGames.Controllers.ProdutoController",
     "Method": "Remover",
     "RelativePath": "api/Produto/{id}",
     "HttpMethod": "DELETE",
@@ -277,8 +277,18 @@
     "Order": 0,
     "Parameters": [
       {
+        "Name": "ProdutoID",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
         "Name": "Nome",
         "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Preco",
+        "Type": "System.Decimal",
         "IsRequired": false
       },
       {

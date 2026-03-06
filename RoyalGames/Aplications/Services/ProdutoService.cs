@@ -30,11 +30,15 @@ namespace RoyalGames.Aplications.Services
             return produtosDto;
         }
 
-        public List<LerProdutoDto> Filtrar(FiltrarProdutoDto filtroDto)
+        public List<LerFiltroProdutoDto> Filtrar(FiltrarProdutoDto filtroDto)
         {
             List<Produto> produtos = _repository.Filtrar(filtroDto);
+            if (produtos == null)
+            {
+                throw new DomainException("Produto não encontrado!");
+            }
 
-            var produtosFiltradosDto = produtos.Select(ProdutoParaDto.ConverterParaDto).ToList();
+            var produtosFiltradosDto = produtos.Select(FiltrarProdutoParaDto.ConverterParaDto).ToList();
 
             return produtosFiltradosDto;
         }
