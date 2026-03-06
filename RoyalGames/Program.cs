@@ -1,7 +1,13 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using RoyalGames.Aplications.Authentication;
+using RoyalGames.Aplications.Services;
+using RoyalGames.Contexts;
+using RoyalGames.Interfaces;
+using RoyalGames.Repositories;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +47,13 @@ builder.Services.AddSwaggerGen(c =>
 // Conexï¿½o com o banco de dados
 builder.Services.AddDbContext<RoyalGamesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//JWT
+builder.Services.AddScoped<GeradorTokenJwt>();
+builder.Services.AddScoped<AutenticacaoService>();
+
+// Usuario
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<UsuarioService>();
 
 // Produto
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -50,13 +63,9 @@ builder.Services.AddScoped<ProdutoService>();
 builder.Services.AddScoped<IPlataformaRepository, PlataformaRepository>();
 builder.Services.AddScoped<PlataformaService>();
 
-// Usuario
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<UsuarioService>();
-
-//JWT
-builder.Services.AddScoped<GeradorTokenJwt>();
-builder.Services.AddScoped<AutenticacaoService>();
+// Promocao
+builder.Services.AddScoped<IPromocaoRepository, PromocaoRepository>();
+builder.Services.AddScoped<PromocaoService>();
 
 // Gênero
 builder.Services.AddScoped<IGeneroRepository, GeneroRepository>();

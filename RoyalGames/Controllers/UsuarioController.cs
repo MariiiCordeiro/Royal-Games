@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
 using RoyalGames.DTOs.UsuarioDto;
@@ -53,6 +55,7 @@ namespace VHBurguer.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult<LerUsuarioDto> Adicionar(CriarUsuarioDto usuarioDto)
         {
             try
@@ -68,6 +71,7 @@ namespace VHBurguer.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public ActionResult<LerUsuarioDto> Atualizar(int id, CriarUsuarioDto usuarioDto)
         {
             try
@@ -83,6 +87,7 @@ namespace VHBurguer.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public ActionResult Remover(int id)
         {
             try

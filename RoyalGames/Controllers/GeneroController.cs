@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
 using RoyalGames.DTOs.GeneroDto;
@@ -38,7 +40,7 @@ namespace RoyalGames.Controllers
             }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public ActionResult Adicionar(CriarGeneroDto criarGenero)
         {
             try
@@ -53,7 +55,8 @@ namespace RoyalGames.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize]
+
+        [Authorize]
         public ActionResult Atualizar(int id, CriarGeneroDto criarGenero)
         {
             try
@@ -68,7 +71,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public ActionResult Remover(int id)
         {
             try
@@ -81,6 +84,5 @@ namespace RoyalGames.Controllers
                 return BadRequest(ex.Message);
             }
         }
-      
     }
 }

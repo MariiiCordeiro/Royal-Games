@@ -5,7 +5,7 @@ using static RoyalGames.Aplications.Services.ClassificacaoService;
 namespace RoyalGames.Controllers
 {
     [ApiController]
-    [Route("api/classificacoes")]
+    [Route("api/classificacao")]
     public class ClassificacaoIndicativaController : ControllerBase
     {
         private readonly ClassificacaoService _service;

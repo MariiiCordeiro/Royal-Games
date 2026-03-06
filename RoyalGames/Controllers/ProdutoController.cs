@@ -80,7 +80,7 @@ namespace RoyalGames.Controllers
             }
         }
 
-        [HttpPut("(id)")]
+        [HttpPut("{id}")]
         [Authorize]
         public IActionResult Atualizar(int id, [FromForm] AtualizarProdutoDto produtoDTO)
         {

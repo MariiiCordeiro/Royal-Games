@@ -15,7 +15,7 @@ namespace RoyalGames.Aplications.Services
 
         public GeneroService(IGeneroRepository repository)
         {
-            _repository = repository;   
+            _repository = repository;
         }
 
         public List<LerGeneroDto> Listar()
@@ -28,7 +28,7 @@ namespace RoyalGames.Aplications.Services
                 Nome = genero.Nome
             }).ToList();
 
-        return generoDto;
+            return generoDto;
         }
 
 
@@ -36,7 +36,7 @@ namespace RoyalGames.Aplications.Services
         {
             Genero genero = _repository.ObterPorId(id);
 
-            if(genero == null)
+            if (genero == null)
             {
                 throw new DomainException("Gênero já existe!");
             }
@@ -79,7 +79,7 @@ namespace RoyalGames.Aplications.Services
 
             Genero generoBanco = _repository.ObterPorId(id);
 
-            if( generoBanco == null)
+            if (generoBanco == null)
             {
                 throw new DomainException("Gênero não encontrado!");
             }
@@ -91,13 +91,15 @@ namespace RoyalGames.Aplications.Services
 
             generoBanco.Nome = criardto.Nome;
             return;
+
+            _repository.Atualizar(generoBanco);
         }
 
         public void Remover(int id)
         {
-            Genero generoBanco =_repository.ObterPorId(id);
+            Genero generoBanco = _repository.ObterPorId(id);
 
-            if( generoBanco == null)
+            if (generoBanco == null)
             {
                 throw new DomainException("Gênero não enocntrado!");
             }

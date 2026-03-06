@@ -37,7 +37,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public ActionResult Adicionar(CriarPlataformaDto criarPlataforma)
         {
             try
@@ -52,7 +52,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize]
         public ActionResult Atualizar(int id, CriarPlataformaDto criarPlataforma)
         {
             try
@@ -67,7 +67,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize]
         public ActionResult Remover(int id)
         {
             try
