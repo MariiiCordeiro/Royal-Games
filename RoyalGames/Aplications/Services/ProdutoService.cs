@@ -3,6 +3,7 @@ using RoyalGames.Domains;
 using RoyalGames.DTOs.ProdutoDto;
 using RoyalGames.Exceptions;
 using RoyalGames.Interfaces;
+using RoyalGames.Repositories;
 using VHBurger.Aplications.Rules;
 
 namespace RoyalGames.Aplications.Services
@@ -29,6 +30,19 @@ namespace RoyalGames.Aplications.Services
             return produtosDto;
         }
 
+        public List<LerFiltroProdutoDto> Filtrar(FiltrarProdutoDto filtroDto)
+        {
+            List<Produto> produtos = _repository.Filtrar(filtroDto);
+            if (produtos == null)
+            {
+                throw new DomainException("Produto não encontrado!");
+            }
+
+            var produtosFiltradosDto = produtos.Select(FiltrarProdutoParaDto.ConverterParaDto).ToList();
+
+            return produtosFiltradosDto;
+        }
+
         public LerProdutoDto ObterPorId(int id)
         {
             Produto produto = _repository.ObterPorId(id);
@@ -41,6 +55,8 @@ namespace RoyalGames.Aplications.Services
             // converte o produto encontrado para DTO e devolve
             return ProdutoParaDto.ConverterParaDto(produto);
         }
+
+
 
         private static void ValidarCadastro(CriarProdutoDto produtoDto)
         {

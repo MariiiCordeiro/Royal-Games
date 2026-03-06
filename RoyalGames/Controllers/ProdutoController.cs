@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
 using RoyalGames.DTOs.ProdutoDto;
 using RoyalGames.Exceptions;
+using RoyalGames.Interfaces;
+using System.Globalization;
 using System.Security.Claims;
 
 namespace RoyalGames.Controllers
@@ -60,6 +62,17 @@ namespace RoyalGames.Controllers
 
             return Ok(produto);
         }
+
+        [HttpGet("filtro")]
+        public IActionResult Filtrar([FromQuery] FiltrarProdutoDto filtro)
+        {
+            List<LerFiltroProdutoDto> produtos = _service.Filtrar(filtro);
+
+            return Ok(produtos);
+        }
+
+
+
         [HttpPost]
         [Consumes("Multipart/Form-Data")] // Indica que recebe dados no formato multpart/from-data
         [Authorize] // exige login para adicionar produtos

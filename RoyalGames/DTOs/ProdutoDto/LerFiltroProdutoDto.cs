@@ -1,15 +1,12 @@
 ﻿namespace RoyalGames.DTOs.ProdutoDto
 {
-    public class LerProdutoDto
+    public class LerFiltroProdutoDto
     {
-
-        public int ProdutoID { get; set; }
+        public int? ProdutoID { get; set; } = null;
 
         public string Nome { get; set; } = null!;
 
         public decimal Preco { get; set; }
-
-        public string Descricao { get; set; } = null!;
 
         public bool? StatusProduto { get; set; }
 
@@ -20,10 +17,5 @@
         // Plataforma
         public List<int> PlataformaIds { get; set; } = new();
         public List<string> Plataforma { get; set; } = new();
-
-        // usuario que cadastrou
-        public int? UsuarioID { get; set; }
-        public string? UsuarioNome { get; set; }
-        public string? UsuarioEmail { get; set; }
     }
 }
