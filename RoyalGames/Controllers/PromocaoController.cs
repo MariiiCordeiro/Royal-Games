@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
 using RoyalGames.Contexts;
 using RoyalGames.Domains;
+using RoyalGames.DTOs.GeneroDto;
 using RoyalGames.DTOs.PromocaoDto;
 
 namespace RoyalGames.Controllers
@@ -29,12 +30,15 @@ namespace RoyalGames.Controllers
         [HttpGet("{id}")]
         public IActionResult OberPorId(int id)
         {
-            var promocao = _service.ObterPorId(id);
-
-            if (promocao == null)
-                return NotFound();
-
-            return Ok(promocao);
+            try
+            {
+                var promocao = _service.ObterPorId(id);
+                return Ok(promocao);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

@@ -52,15 +52,15 @@ namespace RoyalGames.Controllers
         [HttpGet("{id}")]
         public ActionResult<LerProdutoDto> ObterPorId(int id)
         {
-            LerProdutoDto produto = _service.ObterPorId(id);
-
-            if (produto == null)
+            try
             {
-                //return StatusCode(404);
-                return NotFound();
+                LerProdutoDto produto = _service.ObterPorId(id);
+                return Ok(produto);
             }
-
-            return Ok(produto);
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet("filtro")]

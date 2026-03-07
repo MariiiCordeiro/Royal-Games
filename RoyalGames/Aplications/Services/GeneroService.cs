@@ -37,9 +37,8 @@ namespace RoyalGames.Aplications.Services
             Genero genero = _repository.ObterPorId(id);
 
             if (genero == null)
-            {
                 throw new DomainException("Gênero já existe!");
-            }
+
             LerGeneroDto generoDto = new LerGeneroDto
             {
                 GeneroID = genero.GeneroID,
@@ -52,9 +51,7 @@ namespace RoyalGames.Aplications.Services
         public static void ValidarNome(string nome)
         {
             if (string.IsNullOrWhiteSpace(nome))
-            {
                 throw new DomainException("Nome é obrigatório!");
-            }
         }
 
         public void Adicionar(CriarGeneroDto criarDto)
@@ -62,9 +59,7 @@ namespace RoyalGames.Aplications.Services
             ValidarNome(criarDto.Nome);
 
             if (_repository.NomeExiste(criarDto.Nome))
-            {
                 throw new DomainException("Genêro já cadastrado!");
-            }
 
             Genero genero = new Genero
             {
@@ -80,14 +75,10 @@ namespace RoyalGames.Aplications.Services
             Genero generoBanco = _repository.ObterPorId(id);
 
             if (generoBanco == null)
-            {
                 throw new DomainException("Gênero não encontrado!");
-            }
 
             if (_repository.NomeExiste(criardto.Nome))
-            {
                 throw new DomainException("Genêro já cadastrado!");
-            }
 
             generoBanco.Nome = criardto.Nome;
             return;
@@ -100,9 +91,7 @@ namespace RoyalGames.Aplications.Services
             Genero generoBanco = _repository.ObterPorId(id);
 
             if (generoBanco == null)
-            {
                 throw new DomainException("Gênero não encotrado!");
-            }
 
             _repository.Remover(id);
         }

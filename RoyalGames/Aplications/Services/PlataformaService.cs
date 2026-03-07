@@ -46,9 +46,7 @@ namespace RoyalGames.Aplications.Services
 
             //Caso não encontro envia a DomainEcepxtion.
             if (plataforma == null)
-            {
                 throw new DomainException("Plataforma não encontrada!");
-            }
 
             // Converte a plataforma para DTO de leitura.
             LerPlataformaDto PlataformaDto = new LerPlataformaDto
@@ -65,9 +63,7 @@ namespace RoyalGames.Aplications.Services
         private static void ValidarNome(string nome)
         {
             if (string.IsNullOrWhiteSpace(nome))
-            {
                 throw new DomainException("Nome é obrigatório!");
-            }
         }
 
         // Adiciona uma nova plataforma no sistema.
@@ -78,9 +74,7 @@ namespace RoyalGames.Aplications.Services
 
             // Verificação se já existe uma plataforma com o mesmo nome.
             if (_repository.NomeExiste(criarDto.Nome))
-            {
                 throw new DomainException("Plataforma já cadastrada!");
-            }
 
             // Converte DTO para Plataforma.
             Plataforma plataforma = new Plataforma
@@ -103,17 +97,13 @@ namespace RoyalGames.Aplications.Services
 
             //Se naõ ecnontrar envia DomainException
             if (plataformaBanco == null)
-            {
                 throw new DomainException("Plataforma não encontrada!");
-            }
 
             // Verifica se já existe outra plataforma com o mesmo nome.
             // O parâmetro PlataformaIdAtual evita que ele compare com ele mesmo.
             // categoriaIdAtual: id -> categoriaIdAtual recebe id
             if (_repository.NomeExiste(criarDto.Nome, PlataformaIdAtual: id))
-            {
                 throw new DomainException("Plataforma já cadastrada!");
-            }
 
             // Atualiza o npme.
             plataformaBanco.Nome = criarDto.Nome;
@@ -128,13 +118,10 @@ namespace RoyalGames.Aplications.Services
 
             //Se não envia a DomainException
             if (plataformaBanco == null)
-            {
                 throw new DomainException("Plataforma não encontrada!");
-            }
 
             // Solicita ao repositório a remoção.
             _repository.Remover(id);
         }
-
     }
 }

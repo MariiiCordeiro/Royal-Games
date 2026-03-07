@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-﻿using Microsoft.AspNetCore.Authorization;
+﻿﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
 using RoyalGames.DTOs.GeneroDto;
 using RoyalGames.DTOs.PlataformaDto;
+using RoyalGames.DTOs.ProdutoDto;
 using RoyalGames.Exceptions;
 
 namespace RoyalGames.Controllers
@@ -29,15 +30,16 @@ namespace RoyalGames.Controllers
         [HttpGet("{id}")]
         public ActionResult<LerGeneroDto> ObterPorId(int id)
         {
-            LerGeneroDto generoDto = _service.ObterPorId(id);
-
-            if (generoDto == null)
+            try
             {
-                return NotFound();
+                LerGeneroDto genero = _service.ObterPorId(id);
+                return Ok(genero);
             }
-
-                return Ok(generoDto);
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
             }
+        }
 
         [HttpPost]
         [Authorize]

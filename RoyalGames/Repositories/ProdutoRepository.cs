@@ -2,6 +2,7 @@
 using RoyalGames.Contexts;
 using RoyalGames.Domains;
 using RoyalGames.DTOs.ProdutoDto;
+using RoyalGames.Exceptions;
 using RoyalGames.Interfaces;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -91,6 +92,9 @@ namespace RoyalGames.Repositories
                 .Include(p => p.Genero)
                 .Include(p => p.Usuario)
                 .FirstOrDefault(p => p.ProdutoID == id);
+
+            if (produto == null)
+                throw new DomainException("Produto não encontrado!");
 
             return produto;
         }

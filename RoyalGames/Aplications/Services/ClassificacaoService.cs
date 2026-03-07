@@ -1,4 +1,5 @@
 ﻿using RoyalGames.Domains;
+using RoyalGames.Exceptions;
 using RoyalGames.Interfaces;
 
 namespace RoyalGames.Aplications.Services
@@ -19,6 +20,11 @@ namespace RoyalGames.Aplications.Services
 
         public ClassificacaoIndicativa ObterPorId(int id)
         {
+            var classificacao = _repository.ObterPorId(id);
+
+            if (classificacao == null)
+                throw new DomainException("Classificação não encontrada!");
+
             return _repository.ObterPorId(id);
         }
     }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
+using RoyalGames.DTOs.GeneroDto;
 using RoyalGames.DTOs.PlataformaDto;
 using RoyalGames.Exceptions;
 
@@ -27,13 +28,15 @@ namespace RoyalGames.Controllers
         [HttpGet("{id}")]
         public ActionResult<LerPlataformaDto> ObterPorId(int id)
         {
-            LerPlataformaDto plataforma = _service.ObterPorId(id);
-
-            if (plataforma == null)
+            try
             {
-                return NotFound();
+                LerPlataformaDto plataformaDto = _service.ObterPorId(id);
+                return Ok(plataformaDto);
             }
-            return Ok(plataforma);
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]

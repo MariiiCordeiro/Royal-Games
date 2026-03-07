@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-﻿using Microsoft.AspNetCore.Authorization;
+﻿﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
+using RoyalGames.DTOs.GeneroDto;
 using RoyalGames.DTOs.UsuarioDto;
 using RoyalGames.Exceptions;
 
@@ -31,27 +32,29 @@ namespace VHBurguer.Controllers
         [HttpGet("{id}")]
         public ActionResult<LerUsuarioDto> ObterPorId(int id)
         {
-            LerUsuarioDto usuario = _service.ObterPorId(id);
-
-            if (usuario == null)
+            try
             {
-                return NotFound();
+                LerUsuarioDto usuario = _service.ObterPorId(id);
+                return Ok(usuario);
             }
-
-            return Ok(usuario);
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet("email/{email}")]
         public ActionResult<LerUsuarioDto> ObterPorEmail(string email)
         {
-            LerUsuarioDto usuario = _service.ObterPorEmail(email);
-
-            if (usuario == null)
+            try
             {
-                return NotFound();
+                LerUsuarioDto usuario = _service.ObterPorEmail(email);
+                return Ok(usuario);
             }
-
-            return Ok(usuario);
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]
