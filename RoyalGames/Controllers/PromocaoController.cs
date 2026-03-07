@@ -12,12 +12,10 @@ namespace RoyalGames.Controllers
     [ApiController]
     public class PromocaoController : ControllerBase
     {
-        private readonly RoyalGamesContext _context;
         private readonly PromocaoService _service;
 
         public PromocaoController(RoyalGamesContext context, PromocaoService service)
         {
-            _context = context;
             _service = service;
         }
 

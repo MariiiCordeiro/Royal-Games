@@ -11,7 +11,7 @@ public partial class ProdutoPromocao
 
     public decimal? Valor { get; set; }
 
-    public virtual Produto Produto { get; set; } = null!;
+    public virtual Produto Produto { get; set; }
 
-    public virtual Promocao Promocao { get; set; } = null!;
+    public virtual Promocao Promocao { get; set; }
 }

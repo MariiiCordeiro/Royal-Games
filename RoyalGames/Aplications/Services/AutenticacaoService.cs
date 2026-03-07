@@ -32,13 +32,13 @@ namespace RoyalGames.Aplications.Services
             Usuario usuario = _repository.ObterPorEmail(loginDto.Email);
 
             if (usuario == null) //Usuario
-                throw new DomainException("E-mail ou senha invalidos");
+                throw new DomainException("E-mail ou senha invalidos!");
 
             if (usuario.StatusUsuario == false)
-                throw new DomainException("E-mail ou senha invalidos");
+                throw new DomainException("E-mail ou senha invalidos!");
 
-            if (!VerificarSenha(loginDto.Senha, usuario.Senha))
-                throw new DomainException("E-mail ou senha invalidos");
+            if (VerificarSenha(loginDto.Senha, usuario.Senha) == false)
+                throw new DomainException("E-mail ou senha invalidos!");
 
             var token = _tokenJwt.GerarToken(usuario);
 

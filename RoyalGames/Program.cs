@@ -59,13 +59,17 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<ProdutoService>();
 
-//Plataforma
+// Plataforma
 builder.Services.AddScoped<IPlataformaRepository, PlataformaRepository>();
 builder.Services.AddScoped<PlataformaService>();
 
 // Promocao
 builder.Services.AddScoped<IPromocaoRepository, PromocaoRepository>();
 builder.Services.AddScoped<PromocaoService>();
+
+// ProdutoPromocao
+builder.Services.AddScoped<IProdutoPromocaoRepository, ProdutoPromocaoRepository>();
+builder.Services.AddScoped<ProdutoPromocaoService>();
 
 // Gênero
 builder.Services.AddScoped<IGeneroRepository, GeneroRepository>();
@@ -135,7 +139,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
-
 
 
 // Configure the HTTP request pipeline.

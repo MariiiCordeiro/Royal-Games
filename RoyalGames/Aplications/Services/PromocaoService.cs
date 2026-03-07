@@ -33,7 +33,7 @@ namespace RoyalGames.Aplications.Services
             Promocao promocao = _repository.ObterPorId(id);
             if (promocao == null)
             {
-                throw new DomainException("Promocão não encontrada.");
+                throw new DomainException("Promocão não encontrada!");
             }
 
             LerPromocaoDto promocaoDto = new LerPromocaoDto
@@ -50,17 +50,17 @@ namespace RoyalGames.Aplications.Services
 
             if (string.IsNullOrWhiteSpace(promocao.Nome))
             {
-                throw new DomainException("Nome é obrigatório.");
+                throw new DomainException("Nome é obrigatório!");
             }
 
             if (promocao.DataExpiracao < DateTime.Now.Date)
             {
-                throw new DomainException("Data precisa ser maior que a data atual.");
+                throw new DomainException("Data precisa ser maior que a data atual!");
             }
 
             if (string.IsNullOrWhiteSpace(promocao.Descricao))
             {
-                throw new DomainException("Descrição é obrigatória.");
+                throw new DomainException("Descrição é obrigatória!");
             }
         }
 
@@ -70,7 +70,7 @@ namespace RoyalGames.Aplications.Services
 
             if (_repository.NomeExiste(promocaoDto.Nome) == true)
             {
-                throw new DomainException("Nome já existe.");
+                throw new DomainException("Promoção já cadastrada");
             }
 
             Promocao promocao = new Promocao
@@ -86,7 +86,7 @@ namespace RoyalGames.Aplications.Services
         {
             if (string.IsNullOrWhiteSpace(promocaoDto.Nome))
             {
-                throw new DomainException("Nome é obrigatório.");
+                throw new DomainException("Nome é obrigatório!");
             }
         }
 
@@ -98,7 +98,7 @@ namespace RoyalGames.Aplications.Services
 
             if (promocaoBanco == null)
             {
-                throw new DomainException("Promoção não encontrada.");
+                throw new DomainException("Promoção não encontrada!");
             }
 
             ValidarNome(promocaoDto);
@@ -106,7 +106,7 @@ namespace RoyalGames.Aplications.Services
             Promocao promocao = _repository.ObterPorId(id);
 
             if (_repository.NomeExiste(promocaoDto.Nome))
-                throw new DomainException("Nome já existe.");
+                throw new DomainException("Promoção já cadastrada!");
 
             promocao.Nome = promocaoDto.Nome;
 
@@ -124,7 +124,7 @@ namespace RoyalGames.Aplications.Services
             Promocao promocao = _repository.ObterPorId(id);
             if (promocao == null)
             {
-                throw new DomainException("Produto não encontrado.");
+                throw new DomainException("Promoção não encontrada!");
             }
 
             _repository.Remover(id);
