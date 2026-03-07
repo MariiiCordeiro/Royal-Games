@@ -15,7 +15,7 @@ namespace RoyalGames.Aplications.Services
 
         public GeneroService(IGeneroRepository repository)
         {
-            _repository = repository;   
+            _repository = repository;
         }
 
         public List<LerGeneroDto> Listar()
@@ -28,7 +28,7 @@ namespace RoyalGames.Aplications.Services
                 Nome = genero.Nome
             }).ToList();
 
-        return generoDto;
+            return generoDto;
         }
 
 
@@ -36,7 +36,7 @@ namespace RoyalGames.Aplications.Services
         {
             Genero genero = _repository.ObterPorId(id);
 
-            if(genero == null)
+            if (genero == null)
             {
                 throw new DomainException("Gênero já existe!");
             }
@@ -53,7 +53,7 @@ namespace RoyalGames.Aplications.Services
         {
             if (string.IsNullOrWhiteSpace(nome))
             {
-                throw new DomainException("Nome é obrigatório.");
+                throw new DomainException("Nome é obrigatório!");
             }
         }
 
@@ -63,7 +63,7 @@ namespace RoyalGames.Aplications.Services
 
             if (_repository.NomeExiste(criarDto.Nome))
             {
-                throw new DomainException("Genero já existente.");
+                throw new DomainException("Genêro já cadastrado!");
             }
 
             Genero genero = new Genero
@@ -79,28 +79,29 @@ namespace RoyalGames.Aplications.Services
 
             Genero generoBanco = _repository.ObterPorId(id);
 
-            if( generoBanco == null)
+            if (generoBanco == null)
             {
                 throw new DomainException("Gênero não encontrado!");
             }
 
             if (_repository.NomeExiste(criardto.Nome))
             {
-                throw new DomainException("Já existe um gênero com esse nome!");
+                throw new DomainException("Genêro já cadastrado!");
             }
 
             generoBanco.Nome = criardto.Nome;
+            return;
 
             _repository.Atualizar(generoBanco);
         }
 
         public void Remover(int id)
         {
-            Genero generoBanco =_repository.ObterPorId(id);
+            Genero generoBanco = _repository.ObterPorId(id);
 
-            if( generoBanco == null)
+            if (generoBanco == null)
             {
-                throw new DomainException("Gênero não enocntrado!");
+                throw new DomainException("Gênero não encotrado!");
             }
 
             _repository.Remover(id);

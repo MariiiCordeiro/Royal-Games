@@ -1,3 +1,4 @@
+﻿using Microsoft.AspNetCore.Http;
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpPut("{id}")]
+
         [Authorize]
         public ActionResult Atualizar(int id, CriarGeneroDto criarGenero)
         {
@@ -82,6 +84,5 @@ namespace RoyalGames.Controllers
                 return BadRequest(ex.Message);
             }
         }
-      
     }
 }

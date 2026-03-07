@@ -3,6 +3,7 @@ using RoyalGames.Domains;
 using RoyalGames.DTOs.ProdutoDto;
 using RoyalGames.Exceptions;
 using RoyalGames.Interfaces;
+using RoyalGames.Repositories;
 using VHBurger.Aplications.Rules;
 
 namespace RoyalGames.Aplications.Services
@@ -29,44 +30,59 @@ namespace RoyalGames.Aplications.Services
             return produtosDto;
         }
 
+        public List<LerFiltroProdutoDto> Filtrar(FiltrarProdutoDto filtroDto)
+        {
+            List<Produto> produtos = _repository.Filtrar(filtroDto);
+            if (produtos == null)
+            {
+                throw new DomainException("Produto não encontrado!");
+            }
+
+            var produtosFiltradosDto = produtos.Select(FiltrarProdutoParaDto.ConverterParaDto).ToList();
+
+            return produtosFiltradosDto;
+        }
+
         public LerProdutoDto ObterPorId(int id)
         {
             Produto produto = _repository.ObterPorId(id);
 
             if (produto == null)
             {
-                throw new DomainException("Produto não encontrado");
+                throw new DomainException("Produto não encontrado!");
             }
 
             // converte o produto encontrado para DTO e devolve
             return ProdutoParaDto.ConverterParaDto(produto);
         }
 
+
+
         private static void ValidarCadastro(CriarProdutoDto produtoDto)
         {
             if (string.IsNullOrWhiteSpace(produtoDto.Nome))
             {
-                throw new DomainException("Nome é obrigatório.");
+                throw new DomainException("Nome é obrigatório!");
             }
 
             if (produtoDto.Preco < 0)
             {
-                throw new DomainException("Preço deve ser maior que zero.");
+                throw new DomainException("Preço deve ser maior que zero!");
             }
 
             if (string.IsNullOrWhiteSpace(produtoDto.Descricao))
             {
-                throw new DomainException("Descrição é obrigatória.");
+                throw new DomainException("Descrição é obrigatória!");
             }
 
             if (produtoDto.Imagem == null || produtoDto.Imagem.Length == 0)
             {
-                throw new DomainException("Imagem é obrigatória.");
+                throw new DomainException("Imagem é obrigatória!");
             }
 
             if (produtoDto.GeneroIds == null || produtoDto.GeneroIds.Count == 0)
             {
-                throw new DomainException("Produto deve ter ao menos uma categoria.");
+                throw new DomainException("Produto deve ter ao menos uma categoria!");
             }
         }
 
@@ -76,7 +92,7 @@ namespace RoyalGames.Aplications.Services
 
             if (imagem == null || imagem.Length == 0)
             {
-                throw new DomainException("Imagem não encontrada");
+                throw new DomainException("Imagem não encontrada!");
             }
 
             return imagem;
@@ -88,7 +104,7 @@ namespace RoyalGames.Aplications.Services
 
             if (_repository.NomeExiste(produtoDto.Nome))
             {
-                throw new DomainException("Produto já existente");
+                throw new DomainException("Produto já cadastrado!");
             }
 
             Produto produto = new Produto
@@ -114,23 +130,23 @@ namespace RoyalGames.Aplications.Services
 
             if (produtoBanco == null)
             {
-                throw new DomainException("Produto não encontrado.");
+                throw new DomainException("Produto não encontrado!");
             }
 
             // produtoIdAtual: -> dois pontos serve para passar o valor do parametro
             if (_repository.NomeExiste(produtoDto.Nome, produtoIdAtual: id))
             {
-                throw new DomainException("Já existe outro produto com esse nome.");
+                throw new DomainException("Já existe outro produto com esse nome!");
             }
 
             if (produtoDto.GeneroIds == null || produtoDto.GeneroIds.Count == 0)
             {
-                throw new DomainException("Produto deve ter ao menos uma categoria.");
+                throw new DomainException("Produto deve ter ao menos uma categoria!");
             }
 
             if (produtoDto.Preco < 0)
             {
-                throw new DomainException("Preço deve ser maior que zero.");
+                throw new DomainException("Preço deve ser maior que zero!");
             }
 
             produtoBanco.Nome = produtoDto.Nome;
@@ -160,7 +176,7 @@ namespace RoyalGames.Aplications.Services
             Produto produto = _repository.ObterPorId(id);
 
             if (produto == null)
-                throw new DomainException("Produto não encontrado.");
+                throw new DomainException("Produto não encontrado!");
 
             _repository.Remover(id);
         }

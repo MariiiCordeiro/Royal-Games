@@ -47,7 +47,7 @@ namespace RoyalGames.Aplications.Services
             //Caso não encontro envia a DomainEcepxtion.
             if (plataforma == null)
             {
-                throw new DomainException("Plataforma não encontrada.");
+                throw new DomainException("Plataforma não encontrada!");
             }
 
             // Converte a plataforma para DTO de leitura.
@@ -66,7 +66,7 @@ namespace RoyalGames.Aplications.Services
         {
             if (string.IsNullOrWhiteSpace(nome))
             {
-                throw new DomainException("Nome é obrigatório.");
+                throw new DomainException("Nome é obrigatório!");
             }
         }
 
@@ -79,7 +79,7 @@ namespace RoyalGames.Aplications.Services
             // Verificação se já existe uma plataforma com o mesmo nome.
             if (_repository.NomeExiste(criarDto.Nome))
             {
-                throw new DomainException("Plataforma já existente.");
+                throw new DomainException("Plataforma já cadastrada!");
             }
 
             // Converte DTO para Plataforma.
@@ -96,15 +96,15 @@ namespace RoyalGames.Aplications.Services
         public void Atualizar(int id, CriarPlataformaDto criarDto)
         {
             // Validação se o campo nome foi preenchido.
-            ValidarNome(criarDto.Nome); 
-            
+            ValidarNome(criarDto.Nome);
+
             //Busca a plataforma no banco
             Plataforma plataformaBanco = _repository.ObterPorId(id);
 
             //Se naõ ecnontrar envia DomainException
             if (plataformaBanco == null)
             {
-                throw new DomainException("Categoria não foi encontrada.");
+                throw new DomainException("Plataforma não encontrada!");
             }
 
             // Verifica se já existe outra plataforma com o mesmo nome.
@@ -112,7 +112,7 @@ namespace RoyalGames.Aplications.Services
             // categoriaIdAtual: id -> categoriaIdAtual recebe id
             if (_repository.NomeExiste(criarDto.Nome, PlataformaIdAtual: id))
             {
-                throw new DomainException("Já existe outra categoria com esse nome.");
+                throw new DomainException("Plataforma já cadastrada!");
             }
 
             // Atualiza o npme.
@@ -129,7 +129,7 @@ namespace RoyalGames.Aplications.Services
             //Se não envia a DomainException
             if (plataformaBanco == null)
             {
-                throw new DomainException("Plataforma não encontrada.");
+                throw new DomainException("Plataforma não encontrada!");
             }
 
             // Solicita ao repositório a remoção.

@@ -66,7 +66,7 @@ namespace RoyalGames.Aplications.Services
             Usuario? usuario = _repository.ObterPorId(id);
 
             if (usuario == null)
-                throw new DomainException("Usuario não encontrado");
+                throw new DomainException("Usuario não encontrado!");
 
             return LerDto(usuario);
         }
@@ -77,7 +77,7 @@ namespace RoyalGames.Aplications.Services
             Usuario? usuario = _repository.ObterPorEmail(email);
 
             if (usuario == null)
-                throw new DomainException("Usuario não encontrado");
+                throw new DomainException("Usuario não encontrado!");
 
             return LerDto(usuario);
         }
@@ -88,7 +88,7 @@ namespace RoyalGames.Aplications.Services
             ValidarEmail(usuarioDto.Email);
 
             if (_repository.EmailExiste(usuarioDto.Email))
-                throw new DomainException("Email já está em uso");
+                throw new DomainException("Email já está em uso!");
 
             Usuario usuario = new Usuario
             {
@@ -109,14 +109,14 @@ namespace RoyalGames.Aplications.Services
             Usuario usuarioBanco = _repository.ObterPorId(id);
 
             if (usuarioBanco == null)
-                throw new DomainException("Usuário não encontrado.");
+                throw new DomainException("Usuário não encontrado!");
 
             ValidarEmail(usuarioDto.Email);
 
             Usuario usuarioComMesmoEmail = _repository.ObterPorEmail(usuarioDto.Email);
 
             if (usuarioComMesmoEmail != null && usuarioComMesmoEmail.UsuarioID != id)
-                throw new DomainException("Já existe um usuário com este e-mail.");
+                throw new DomainException("Email já cadastrado!");
 
             usuarioBanco.Nome = usuarioDto.Nome;
             usuarioBanco.Email = usuarioDto.Email;
@@ -134,7 +134,7 @@ namespace RoyalGames.Aplications.Services
 
             if (usuario == null)
             {
-                throw new DomainException("Usuário não encontrado.");
+                throw new DomainException("Usuário não encontrado!");
             }
 
             _repository.Remover(id);
