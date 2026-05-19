@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Aplications.Services;
-using RoyalGames.DTOs.ProdutoDto;
+using RoyalGames.DTOs.JogoDto;
 using RoyalGames.Exceptions;
 using System.Security.Claims;
 
@@ -10,11 +10,11 @@ namespace RoyalGames.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProdutoController : ControllerBase
+    public class JogoController : ControllerBase
     {
-        private readonly ProdutoService _service;
+        private readonly JogoService _service;
 
-        public ProdutoController(ProdutoService service)
+        public JogoController(JogoService service)
         {
             _service = service;
         }
@@ -39,38 +39,38 @@ namespace RoyalGames.Controllers
 
 
         [HttpGet]
-        public ActionResult<List<LerProdutoDto>> Listar()
+        public ActionResult<List<LerJogoDto>> Listar()
         {
-            List<LerProdutoDto> produtos = _service.Listar();
+            List<LerJogoDto> jogos = _service.Listar();
 
-            //return StatusCode(200, produtos);
-            return Ok(produtos);
+            //return StatusCode(200, Jogos);
+            return Ok(jogos);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<LerProdutoDto> ObterPorId(int id)
+        public ActionResult<LerJogoDto> ObterPorId(int id)
         {
-            LerProdutoDto produto = _service.ObterPorId(id);
+            LerJogoDto jogo = _service.ObterPorId(id);
 
-            if (produto == null)
+            if (jogo == null)
             {
                 //return StatusCode(404);
                 return NotFound();
             }
 
-            return Ok(produto);
+            return Ok(jogo);
         }
         [HttpPost]
         [Consumes("Multipart/Form-Data")] // Indica que recebe dados no formato multpart/from-data
-        [Authorize] // exige login para adicionar produtos
-        public IActionResult Adicionar([FromForm] CriarProdutoDto produtoDTO)
+        [Authorize] // exige login para adicionar Jogos
+        public IActionResult Adicionar([FromForm] CriarJogoDto JogoDTO)
         {
             try
             {
                 int usuarioId = ObterUsuarioIdLogado();
 
                 // cadastro fica associado ao usuario logado
-                _service.Adicionar(produtoDTO, usuarioId);
+                _service.Adicionar(JogoDTO, usuarioId);
 
                 return StatusCode(201);
             }
@@ -82,11 +82,11 @@ namespace RoyalGames.Controllers
 
         [HttpPut("(id)")]
         [Authorize]
-        public IActionResult Atualizar(int id, [FromForm] AtualizarProdutoDto produtoDTO)
+        public IActionResult Atualizar(int id, [FromForm] AtualizarJogoDto jogoDTO)
         {
             try
             {
-                _service.Atualizar(id, produtoDTO);
+                _service.Atualizar(id, jogoDTO);
                 return NoContent();
             }
             catch (DomainException e)

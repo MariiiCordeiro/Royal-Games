@@ -1,10 +1,10 @@
-﻿namespace RoyalGames.DTOs.ProdutoDto
+﻿namespace RoyalGames.DTOs.JogoDto
 {
-    public class AtualizarProdutoDto
+    public class AtualizarJogoDto
     {
         public string Nome { get; set; } = null!;
 
-        public decimal Preco { get; set; }
+        public decimal Valor { get; set; }
 
         public string Descricao { get; set; } = null!;
 
@@ -12,6 +12,6 @@
 
         public List<int> CategoriaIds { get; set; } = new();
 
-        public bool? StatusProduto { get; set; }
+        public bool? StatusJogo { get; set; }
     }
 }

@@ -1,10 +1,10 @@
-﻿namespace RoyalGames.DTOs.ProdutoDto
+﻿namespace RoyalGames.DTOs.JogoDto
 {
-    public class CriarProdutoDto
+    public class CriarJogoDto
     {
         public string Nome { get; set; } = null!;
 
-        public decimal Preco { get; set; }
+        public decimal Valor { get; set; }
 
         public string Descricao { get; set; } = null!;
 
