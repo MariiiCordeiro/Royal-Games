@@ -18,6 +18,7 @@ namespace RoyalGames.Repositories
             List<Jogo> jogos = _context.Jogo
                 .Include(p => p.JogoPromocao)
                 .Include(p => p.Log_AlteracaoJogo)
+                .Include(p => p.Classificacao)
                 .Include(p => p.Genero)
                 .Include(p => p.Plataforma)
                 .OrderBy(p => p.JogoId)
@@ -30,6 +31,7 @@ namespace RoyalGames.Repositories
         {
             Jogo? jogo = _context.Jogo
                 .Include(p => p.Genero)
+                .Include(p => p.Classificacao)
                 .FirstOrDefault(p => p.JogoId == id);
 
             return jogo;
@@ -47,7 +49,7 @@ namespace RoyalGames.Repositories
 
         public byte[] ObterImagem(int id)
         {
-            var imagemJogo = _context.Jogo
+            byte[] imagemJogo = _context.Jogo
                 .Where(p => p.JogoId == id)
                 .Select(p => p.Imagem)
                 .FirstOrDefault();
@@ -64,14 +66,24 @@ namespace RoyalGames.Repositories
 
             jogo.Genero = generos;
 
+            ClassificacaoIndicativa classificacao = _context.ClassificacaoIndicativa
+                .Where(c => c.ClassificacaoId.Equals(jogo.ClassificacaoId))
+                .FirstOrDefault();
+
+            jogo.ClassificacaoId = classificacao.ClassificacaoId;
+            
+            Console.WriteLine("2222222222222222222222222222222222222222222222222222222222");
+            Console.WriteLine(classificacao.ClassificacaoId);
+            
             _context.Add(jogo);
             _context.SaveChanges();
         }
 
         public void Atualizar(Jogo jogo, List<int> generoIds)
         {
-            Jogo? jogoBanco = _context.Jogo
+            Jogo jogoBanco = _context.Jogo
                 .Include(p => p.Genero)
+                .Include(p => p.Classificacao)
                 .FirstOrDefault(j => j.JogoId == j.JogoId);
 
             if (jogoBanco == null)
@@ -87,20 +99,23 @@ namespace RoyalGames.Repositories
             if(jogo.StatusJogo)
                 jogoBanco.StatusJogo = jogo.StatusJogo;
 
-            // Busca e guarda em generos, todas as categorias cujo o id foi chamado.
+            if(jogo.ClassificacaoId > 0)
+                jogoBanco.ClassificacaoId = jogo.ClassificacaoId;
+
+            //// Busca e guarda em generos, todas as categorias cujo o id foi chamado.
             var generos = _context.Genero
                 .Where(g => generoIds.Contains(g.GeneroId))
                 .ToList();
 
-            // Remover as com categorias atuais ligações atuais 
+            //// Remover as com categorias atuais ligações atuais 
             jogoBanco.Genero.Clear();
 
-            foreach(var genero in generos)
+            foreach (var genero in generos)
             {
                 jogoBanco.Genero.Add(genero);
             }
 
-            _context.SaveChanges();
+            _context.Update(jogo);
         }
 
         public void Remover(int id)
